@@ -17,7 +17,14 @@ def login_view(request):
                 return redirect("index")
 
         else:
+            errors = form.errors.get("__all__")
             context = {
-                "errors": form.errors,
+                "errors": errors,
             }
+            print(errors)
             return render(request, "users/login.html", context)
+
+
+def logout_view(request):
+
+    return redirect("users/login.html")
