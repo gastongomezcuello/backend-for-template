@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 
+from users.forms import RegisterForm
+
 
 def login_view(request):
     if request.method == "GET":
@@ -31,4 +33,19 @@ def logout_view(request):
 
 
 def register_view(request):
-    return render(request, "users/register.html")
+    if request.method == "GET":
+
+        return render(request, "users/register.html")
+    elif request.method == "POST":
+        form = RegisterForm(request.POST)
+        print(form)
+        if form.is_valid():
+            form.save()
+            return redirect("login")
+        else:
+            errors = form.errors
+            print(errors)
+            context = {
+                "errors": errors,
+            }
+            return render(request, "users/register.html", context)
