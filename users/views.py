@@ -49,3 +49,11 @@ def register_view(request):
                 "errors": errors,
             }
             return render(request, "users/register.html", context)
+
+
+def users_list_view(request):
+    return render(request, "users/users_list.html")
+
+
+def profile_view(request):
+    return render(request, "users/profile.html")
