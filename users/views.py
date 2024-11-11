@@ -1,8 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from users.forms import RegisterForm
+from users.models import UserProfile
 
 
 def login_view(request):
@@ -57,3 +61,9 @@ def users_list_view(request):
 
 def profile_view(request):
     return render(request, "users/profile.html")
+
+
+@receiver(post_save, sender=User)
+def create_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
