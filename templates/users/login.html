@@ -48,14 +48,14 @@
                       {{ errors }}
                     </div>
                     {% endif %}
-                    <form action="" method="post">
+                    <form action="/users/login/" method="post">
                       {% csrf_token %}
                       <div class="form-group">
                         <label class="mb-1"><strong>Username</strong></label>
                         <input
                           type="text"
                           class="form-control"
-                          placeholder="Username"
+                          placeholder="username"
                           name="username"
                         />
                       </div>
@@ -64,7 +64,7 @@
                         <input
                           type="password"
                           class="form-control"
-                          placeholder="******"
+                          placeholder="password"
                           name="password"
                         />
                       </div>
