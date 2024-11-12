@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from users.models import UserProfile
 
 
 class RegisterForm(UserCreationForm):
@@ -16,4 +17,24 @@ class RegisterForm(UserCreationForm):
             "last_name",
             "password1",
             "password2",
+        ]
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = [
+            "phone_number",
+            "facebook",
+            "profile_image",
+            "cover_image",
+            "occupation",
+            "description",
+            "availability",
+            "birthdate",
+            "years_experience",
+            "address",
+            "company_name",
+            "native_language",
+            "country",
         ]

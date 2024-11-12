@@ -5,8 +5,10 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from users.forms import RegisterForm
+
+from users.forms import RegisterForm, ProfileForm
 from users.models import UserProfile
+from admin_settings.models import Language, Country
 
 
 def login_view(request):
@@ -60,7 +62,33 @@ def users_list_view(request):
 
 
 def profile_view(request):
-    return render(request, "users/profile.html")
+
+    choices = UserProfile.CHOICE
+    availabilities = [choice[0] for choice in choices]
+
+    if request.method == "GET":
+
+        context = {
+            "availabilities": availabilities,
+            "languages": Language.objects.all(),
+            "countries": Country.objects.all(),
+        }
+        print(context)
+        return render(request, "users/profile.html", context=context)
+    elif request.method == "POST":
+        form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+            return redirect("profile")
+        else:
+            errors = form.errors
+            context = {
+                "errors": errors,
+                "languages": Language.objects.all(),
+                "countries": Country.objects.all(),
+            }
+            print(request.POST)
+            return render(request, "users/profile.html", context)
 
 
 @receiver(post_save, sender=User)
