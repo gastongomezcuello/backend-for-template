@@ -76,7 +76,27 @@ def profile_view(request):
         print(context)
         return render(request, "users/profile.html", context=context)
     elif request.method == "POST":
-        form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+
+        data = request.POST.copy()
+
+        if (
+            request.POST.get("country")
+            and Country.objects.filter(name=request.POST.get("country")).exists()
+        ):
+            country = Country.objects.get(name=request.POST.get("country"))
+            data["country"] = country.id
+
+        if (
+            request.POST.get("native_language")
+            and Language.objects.filter(
+                name=request.POST.get("native_language")
+            ).exists()
+        ):
+            native_language = Language.objects.get(
+                name=request.POST.get("native_language")
+            )
+            data["native_language"] = native_language.id
+        form = ProfileForm(data, request.FILES, instance=request.user.profile)
         if form.is_valid():
             form.save()
             return redirect("profile")
@@ -84,6 +104,7 @@ def profile_view(request):
             errors = form.errors
             context = {
                 "errors": errors,
+                "availabilities": availabilities,
                 "languages": Language.objects.all(),
                 "countries": Country.objects.all(),
             }
