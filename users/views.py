@@ -29,7 +29,7 @@ def login_view(request):
             context = {
                 "errors": errors,
             }
-            print(errors)
+
             return render(request, "users/login.html", context)
 
 
@@ -44,13 +44,13 @@ def register_view(request):
         return render(request, "users/register.html")
     elif request.method == "POST":
         form = RegisterForm(request.POST)
-        print(form)
+
         if form.is_valid():
             form.save()
             return redirect("login")
         else:
             errors = form.errors
-            print(errors)
+
             context = {
                 "errors": errors,
             }
@@ -73,7 +73,7 @@ def profile_view(request):
             "languages": Language.objects.all(),
             "countries": Country.objects.all(),
         }
-        print(context)
+
         return render(request, "users/profile.html", context=context)
     elif request.method == "POST":
 
@@ -108,7 +108,7 @@ def profile_view(request):
                 "languages": Language.objects.all(),
                 "countries": Country.objects.all(),
             }
-            print(request.POST)
+
             return render(request, "users/profile.html", context)
 
 
