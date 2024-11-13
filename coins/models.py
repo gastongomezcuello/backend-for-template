@@ -47,21 +47,14 @@ class Coin(models.Model):
         result = self.transactions.filter(date=date).aggregate(
             average=models.Avg("price")
         )
-        print(result)
         return result.get("average", 0.0)
 
-    def last_five_days_average(self):
-        last_date = self.get_date_last_transaction()
-        five_days = [last_date - td(days=i) for i in range(5)]
-
-        averages = []
-        for day in five_days:
-            avg = self.day_average(day)
-            averages.append({"date": day, "avg": avg})
-        print(last_date)
-        print(five_days)
-        print(averages)
-        return averages
+    # def last_five_days_average(self, five_days, data ):
+    #     averages = []
+    #     for day in five_days:
+    #         avg = self.day_average(day)
+    #         averages.append({"date": day, "avg": avg})
+    #     return averages
 
 
 class Transaction(models.Model):
