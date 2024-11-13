@@ -1,3 +1,12 @@
 from django.db import models
 
-# Create your models here.
+
+class News(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    url = models.CharField(max_length=100)
+    url_to_image = models.CharField(max_length=100)
+    published_at = models.DateTimeField()
+
+    def __str__(self):
+        return self.title

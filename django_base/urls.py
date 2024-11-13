@@ -10,6 +10,7 @@ urlpatterns = (
         path("admin/", admin.site.urls),
         path("", index, name="index"),
         path("users/", include("users.urls")),
+        path("news/", include("news.urls")),
         path("coins/", include("coins.urls")),
     ]
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
