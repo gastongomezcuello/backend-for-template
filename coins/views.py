@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from coins.utils import generate_transaction
@@ -33,8 +33,8 @@ def get_five_days_average(request):
     coins = Coin.objects.all()
     transactions = Transaction.objects.all()
     last_date = transactions.first().date
-    five_days = [(last_date - td(days=i)).strftime("%d/%m") for i in range(5)]
-    data = {"dates": five_days, "data": []}
+    five_days = [last_date - td(days=i) for i in range(5)]
+    data = {"dates": [day.strftime("%d/%m") for day in five_days], "data": []}
     for coin in coins:
         data["data"].append(
             {
@@ -42,7 +42,8 @@ def get_five_days_average(request):
                 "data": [coin.day_average(day) for day in five_days],
             }
         )
-    return HttpResponse(data)
+    request.session["data"] = data
+    return redirect("index")
 
 
 {
