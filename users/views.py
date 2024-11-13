@@ -9,6 +9,7 @@ from django.dispatch import receiver
 from users.forms import RegisterForm, ProfileForm
 from users.models import UserProfile
 from admin_settings.models import Language, Country
+from news.utils import get_random_news
 
 
 def login_view(request):
@@ -65,6 +66,7 @@ def profile_view(request):
 
     choices = UserProfile.CHOICE
     availabilities = [choice[0] for choice in choices]
+    featured_news, other_news = get_random_news()
 
     if request.method == "GET":
 
@@ -72,6 +74,8 @@ def profile_view(request):
             "availabilities": availabilities,
             "languages": Language.objects.all(),
             "countries": Country.objects.all(),
+            "featured_news": featured_news,
+            "other_news": other_news,
         }
 
         return render(request, "users/profile.html", context=context)
@@ -107,6 +111,8 @@ def profile_view(request):
                 "availabilities": availabilities,
                 "languages": Language.objects.all(),
                 "countries": Country.objects.all(),
+                "featured_news": featured_news,
+                "other_news": other_news,
             }
 
             return render(request, "users/profile.html", context)
