@@ -138,26 +138,13 @@
                       <div class="pt-4 border-bottom-1 pb-3">
                         <h4 class="text-primary">About Me</h4>
                         <p class="mb-2">
-                          A wonderful serenity has taken possession of my entire
-                          soul, like these sweet mornings of spring which I
-                          enjoy with my whole heart. I am alone, and feel the
-                          charm of existence was created for the bliss of souls
-                          like mine.I am so happy, my dear friend, so absorbed
-                          in the exquisite sense of mere tranquil existence,
-                          that I neglect my talents.
-                        </p>
-                        <p>
-                          A collection of textile samples lay spread out on the
-                          table - Samsa was a travelling salesman - and above it
-                          there hung a picture that he had recently cut out of
-                          an illustrated magazine and housed in a nice, gilded
-                          frame.
+                          {{request.user.profile.description}}
                         </p>
                       </div>
                     </div>
                     <div class="profile-lang mb-5">
                       <h4 class="text-primary mb-2">Native language</h4>
-                      <p>English</p>
+                      <p>{{request.user.profile.native_language}}</p>
                     </div>
                     <div class="profile-personal-info">
                       <h4 class="text-primary mb-4">Personal Information</h4>
@@ -168,7 +155,7 @@
                           </h5>
                         </div>
                         <div class="col-sm-9 col-7">
-                          <span>Mitchell C.Shay</span>
+                          <span>{{request.user.get_full_name}}</span>
                         </div>
                       </div>
                       <div class="row mb-2">
@@ -195,7 +182,7 @@
                           </h5>
                         </div>
                         <div class="col-sm-9 col-7">
-                          <span>Full Time (Free Lancer)</span>
+                          <span>{{request.user.profile.availability}}</span>
                         </div>
                       </div>
                       <div class="row mb-2">
@@ -205,7 +192,7 @@
                           </h5>
                         </div>
                         <div class="col-sm-9 col-7">
-                          <span>01/27/2022</span>
+                          <span>{{request.user.profile.birthdate}}</span>
                         </div>
                       </div>
                       <div class="row mb-2">
@@ -215,7 +202,7 @@
                           </h5>
                         </div>
                         <div class="col-sm-9 col-7">
-                          <span>Rosemont Avenue Melbourne, Florida</span>
+                          <span>{{request.user.profile.address}}</span>
                         </div>
                       </div>
                       <div class="row mb-2">
@@ -225,7 +212,7 @@
                           </h5>
                         </div>
                         <div class="col-sm-9 col-7">
-                          <span>07 Year Experiences</span>
+                          <span>{{request.user.profile.years_experience}}</span>
                         </div>
                       </div>
                     </div>
