@@ -54,10 +54,10 @@ class Coin(models.Model):
         last_date = self.get_date_last_transaction()
         five_days = [last_date - td(days=i) for i in range(5)]
 
-        averages = {}
+        averages = []
         for day in five_days:
             avg = self.day_average(day)
-            averages[day] = avg
+            averages.append({"date": day, "avg": avg})
         print(last_date)
         print(five_days)
         print(averages)
