@@ -33,7 +33,7 @@ def get_five_days_average(request):
     coins = Coin.objects.all()
     transactions = Transaction.objects.all()
     last_date = transactions.first().date
-    five_days = [last_date - td(days=i) for i in range(5)]
+    five_days = [(last_date - td(days=i)).strftime("%d/%m") for i in range(5)]
     data = {"dates": five_days, "data": []}
     for coin in coins:
         data["data"].append(
