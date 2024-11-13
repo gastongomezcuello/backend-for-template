@@ -17,9 +17,17 @@ class UserProfile(models.Model):
     phone_number = models.CharField(max_length=24, blank=True, null=True)
     facebook = models.URLField(blank=True, null=True)
     profile_image = models.ImageField(
-        upload_to="profile_pictures", blank=True, null=True
+        upload_to="profile_images",
+        blank=True,
+        null=True,
+        default="profile_images/default.jpg",
     )
-    cover_image = models.ImageField(upload_to="cover_pictures", blank=True, null=True)
+    cover_image = models.ImageField(
+        upload_to="cover_images",
+        blank=True,
+        null=True,
+        default="cover_images/default.jpg",
+    )
     occupation = models.CharField(max_length=100, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     availability = models.CharField(

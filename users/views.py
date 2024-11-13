@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
@@ -58,15 +60,18 @@ def register_view(request):
             return render(request, "users/register.html", context)
 
 
+@login_required
 def users_list_view(request):
     return render(request, "users/users_list.html")
 
 
+@login_required
 def profile_view(request):
 
     choices = UserProfile.CHOICE
     availabilities = [choice[0] for choice in choices]
     featured_news, other_news = get_random_news()
+    print(request.user.profile.profile_image.url)
 
     if request.method == "GET":
 
