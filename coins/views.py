@@ -4,6 +4,8 @@ from django.http import HttpResponse
 
 from coins.utils import generate_transaction
 
+from coins.models import Coin
+
 
 @login_required
 def wallets_view(request):
@@ -24,3 +26,9 @@ def generate_transactions(request):
 
     generate_transaction()
     return HttpResponse("Transactions generated")
+
+
+def get_five_days_average(request):
+    for coin in Coin.objects.all():
+        coin.last_five_days_average()
+    return HttpResponse("Last five days average calculated")

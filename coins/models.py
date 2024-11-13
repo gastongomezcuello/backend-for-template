@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.core import validators
 from django.core.validators import RegexValidator
 
+from datetime import timedelta as td
+
 
 class Card(models.Model):
 
@@ -37,6 +39,29 @@ class Coin(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_date_last_transaction(self):
+        return self.transactions.first().date
+
+    def day_average(self, date):
+        result = self.transactions.filter(date=date).aggregate(
+            average=models.Avg("price")
+        )
+        print(result)
+        return result.get("average", 0.0)
+
+    def last_five_days_average(self):
+        last_date = self.get_date_last_transaction()
+        five_days = [last_date - td(days=i) for i in range(5)]
+
+        averages = {}
+        for day in five_days:
+            avg = self.day_average(day)
+            averages[day] = avg
+        print(last_date)
+        print(five_days)
+        print(averages)
+        return averages
 
 
 class Transaction(models.Model):

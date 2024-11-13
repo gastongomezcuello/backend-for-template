@@ -22,23 +22,25 @@ def generate_transaction():
 
     for coin in coins:
         for i in range(20):
-            transaction = Transaction(
-                coin=coin,
-                price=generate_price(),
-                amount=generate_amount(),
-                date=today - td(days=i),
-                transaction_type="BUY",
-            )
-            transactions_list.append(transaction)
+            for j in range(5):
+                transaction = Transaction(
+                    coin=coin,
+                    price=generate_price(),
+                    amount=generate_amount(),
+                    date=today - td(days=i),
+                    transaction_type="BUY",
+                )
+                transactions_list.append(transaction)
 
         for i in range(20):
-            transaction = Transaction(
-                coin=coin,
-                price=generate_price(),
-                amount=generate_amount(),
-                date=today - td(days=i),
-                transaction_type="SELL",
-            )
-            transactions_list.append(transaction)
+            for j in range(5):
+                transaction = Transaction(
+                    coin=coin,
+                    price=generate_price(),
+                    amount=generate_amount(),
+                    date=today - td(days=i),
+                    transaction_type="SELL",
+                )
+                transactions_list.append(transaction)
 
     Transaction.objects.bulk_create(transactions_list)

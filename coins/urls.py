@@ -5,6 +5,7 @@ from coins.views import (
     portfolio_view,
     wallets_view,
     generate_transactions,
+    get_five_days_average,
 )
 
 urlpatterns = [
@@ -12,4 +13,5 @@ urlpatterns = [
     path("portfolio/", portfolio_view, name="portfolio"),
     path("details/", details_view, name="details"),
     path("generate-transactions/", generate_transactions, name="generate_transactions"),
+    path("get-five-days-average/", get_five_days_average, name="get_five_days_average"),
 ]
