@@ -49,6 +49,19 @@ class Coin(models.Model):
         )
         return result.get("average", 0.0)
 
+    def last_day_average(self):
+        return round(self.day_average(self.get_date_last_transaction()), 2)
+
+    def last_week_variation(self):
+        last_week = self.get_date_last_transaction() - td(days=7)
+        last_week_avg = self.day_average(last_week)
+        last_day_avg = self.last_day_average()
+        return round((last_day_avg - last_week_avg) / last_week_avg * 100, 2)
+
+    def day_transactions(self):
+
+        return self.transactions.filter(date=self.get_date_last_transaction())[:8]
+
     # def last_five_days_average(self, five_days, data ):
     #     averages = []
     #     for day in five_days:
@@ -71,3 +84,6 @@ class Transaction(models.Model):
 
     def __str__(self):
         return f"{self.coin.name} - {self.transaction_type}"
+
+    def total(self):
+        return self.price * self.amount
