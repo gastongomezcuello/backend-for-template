@@ -60,3 +60,9 @@ def get_five_days_average():
             }
         )
     return data
+
+
+def get_random_recent_transactions():
+    since = Transaction.objects.first().date - td(days=2)
+
+    return random.choices(Transaction.objects.filter(date__gte=since), k=6)
