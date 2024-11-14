@@ -11,10 +11,11 @@
         <div class="swiper-box">
           <div class="swiper-container card-swiper">
             <div class="swiper-wrapper">
+              {% for card in cards %}
               <div class="swiper-slide">
                 <div class="card-bx stacked card card-animation">
                   <img src="{% static 'images/card/card1.jpg' %}" alt="" />
-                  <div class="card-info" id="card-1">
+                  <div class="card-info" id="card-{{forloop.counter}}">
                     <div style="display: none" class="card_name">
                       {{card.card_name}}
                     </div>
@@ -25,7 +26,7 @@
                       {{card.card_holder}}
                     </div>
                     <div style="display: none" class="valid_until">
-                      {{card.valid_until|date:'m/y'}}
+                      {{card.valid_date|date:'m/y'}}
                     </div>
                     <div style="display: none" class="bank_name">
                       {{card.bank_name}}
@@ -34,15 +35,17 @@
                       {{card.balance}}
                     </div>
                     <div style="display: none" class="card_theme">
-                      {{card.card_theme}}
+                      {{card.color}}
                     </div>
                     <p class="mb-1 text-white fs-14">Main Balance</p>
-                    <a class="btn btn-danger btn-block mt-4 card-close" href="#"
+                    <a
+                      class="btn btn-danger btn-block mt-4 card-close"
+                      href="/coins/delete-card/{{card.id}}"
                       >X</a
                     >
                     <div class="d-flex justify-content-between">
                       <h2 class="num-text text-white mb-5 font-w600">
-                        $673,412.6
+                        ${{card.balance}}
                       </h2>
                       <svg
                         width="36"
@@ -68,159 +71,17 @@
                     <div class="d-flex">
                       <div class="mr-4 text-white">
                         <p class="fs-12 mb-1 op6">VALID THRU</p>
-                        <span>08/21</span>
+                        <span>{{card.valid_date|date:"m/y"}}</span>
                       </div>
                       <div class="text-white">
                         <p class="fs-12 mb-1 op6">CARD HOLDER</p>
-                        <span>Marquezz Silalahi</span>
+                        <span>{{card.card_holder}}</span>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="swiper-slide">
-                <div class="card-bx stacked card card-animation">
-                  <img src="{% static 'images/card/card2.jpg' %}" alt="" />
-                  <div class="card-info" id="card-2">
-                    <div style="display: none" class="card_name">
-                      {{card.card_name}}
-                    </div>
-                    <div style="display: none" class="card_number">
-                      {{card.card_number}}
-                    </div>
-                    <div style="display: none" class="card_holder">
-                      {{card.card_holder}}
-                    </div>
-                    <div style="display: none" class="valid_until">
-                      {{card.valid_until|date:'m/y'}}
-                    </div>
-                    <div style="display: none" class="bank_name">
-                      {{card.bank_name}}
-                    </div>
-                    <div style="display: none" class="balance">
-                      {{card.balance}}
-                    </div>
-                    <div style="display: none" class="card_theme">
-                      {{card.card_theme}}
-                    </div>
-
-                    <p class="fs-14 mb-1 text-white">Main Balance</p>
-                    <a
-                      class="btn btn-danger btn-block mt-4 card-close"
-                      style="z-index: 7"
-                      href="#"
-                      >X</a
-                    >
-                    <div class="d-flex justify-content-between">
-                      <h2 class="num-text text-white mb-5 font-w600">
-                        $673,412.66
-                      </h2>
-                      <svg
-                        width="55"
-                        height="34"
-                        viewbox="0 0 55 34"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <circle
-                          cx="38.0091"
-                          cy="16.7788"
-                          r="16.7788"
-                          fill="white"
-                          fill-opacity="0.67"
-                        ></circle>
-                        <circle
-                          cx="17.4636"
-                          cy="16.7788"
-                          r="16.7788"
-                          fill="white"
-                          fill-opacity="0.67"
-                        ></circle>
-                      </svg>
-                    </div>
-                    <div class="d-flex">
-                      <div class="mr-4 text-white">
-                        <p class="fs-12 mb-1 op6">VALID THRU</p>
-                        <span>08/21</span>
-                      </div>
-                      <div class="text-white">
-                        <p class="fs-12 mb-1 op6">CARD HOLDER</p>
-                        <span>Marquezz Silalahi</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="card-bx stacked card card-animation">
-                  <img src="{% static 'images/card/card3.jpg' %}" alt="" />
-                  <div class="card-info" id="card-3">
-                    <div style="display: none" class="card_name">
-                      {{card.card_name}}
-                    </div>
-                    <div style="display: none" class="card_number">
-                      {{card.card_number}}
-                    </div>
-                    <div style="display: none" class="card_holder">
-                      {{card.card_holder}}
-                    </div>
-                    <div style="display: none" class="valid_until">
-                      {{card.valid_until|date:'m/y'}}
-                    </div>
-                    <div style="display: none" class="bank_name">
-                      {{card.bank_name}}
-                    </div>
-                    <div style="display: none" class="balance">
-                      {{card.balance}}
-                    </div>
-                    <div style="display: none" class="card_theme">
-                      {{card.card_theme}}
-                    </div>
-
-                    <p class="mb-1 text-white fs-14">Main Balance</p>
-                    <a class="btn btn-danger btn-block mt-4 card-close" href="#"
-                      >X</a
-                    >
-                    <div class="d-flex justify-content-between">
-                      <h2 class="num-text text-white mb-5 font-w600">
-                        $673,412.66
-                      </h2>
-                      <svg
-                        width="55"
-                        height="34"
-                        viewbox="0 0 55 34"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <circle
-                          cx="38.0091"
-                          cy="16.7788"
-                          r="16.7788"
-                          fill="white"
-                          fill-opacity="0.67"
-                        ></circle>
-                        <circle
-                          cx="17.4636"
-                          cy="16.7788"
-                          r="16.7788"
-                          fill="white"
-                          fill-opacity="0.67"
-                        ></circle>
-                      </svg>
-                    </div>
-                    <div class="d-flex">
-                      <div class="mr-4 text-white">
-                        <p class="fs-12 mb-1 op6">VALID THRU</p>
-                        <span>08/21</span>
-                      </div>
-                      <div class="text-white">
-                        <p class="fs-12 mb-1 op6">CARD HOLDER</p>
-                        <span>Marquezz Silalahi</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {% endfor %}
             </div>
             <div class="swiper-scrollbar"></div>
           </div>
@@ -289,27 +150,27 @@
               <div class="card-body">
                 <div class="row align-items-end">
                   <div class="col-xl-12 col-lg-12 col-xxl-12">
+                    {{errors}}
                     <form action="" method="POST">
+                      {% csrf_token %}
                       <div class="row">
                         <div class="col-sm-6">
                           <div class="mb-4">
-                            <label for="inputAddress" for="cardName"
-                              >Card Name</label
-                            >
+                            <label for="cardName">Card Name</label>
                             <input
                               type="text"
                               class="form-control"
                               id="cardName"
+                              name="card_name"
                             />
                           </div>
                           <div class="mb-4">
-                            <label for="validDate" for="cardName"
-                              >Valid Date</label
-                            >
+                            <label for="validDate">Valid Date</label>
                             <input
                               type="text"
                               id="validDate"
                               class="form-control"
+                              name="valid_date"
                             />
                           </div>
                           <div class="mb-2">
@@ -320,6 +181,7 @@
                               type="text"
                               id="cardNumber"
                               class="form-control"
+                              name="card_number"
                             />
                           </div>
                         </div>
@@ -332,6 +194,7 @@
                               type="text"
                               id="bankName"
                               class="form-control"
+                              name="bank_name"
                             />
                           </div>
                           <div class="mb-4">
@@ -342,6 +205,7 @@
                               type="text"
                               id="cardHolder"
                               class="form-control"
+                              name="card_holder"
                             />
                           </div>
                           <div>
@@ -354,9 +218,9 @@
                                 <input
                                   type="radio"
                                   class="position-absolute invisible"
-                                  name="options"
+                                  name="color"
                                   id="option1"
-                                  value="option1"
+                                  value="#FF5733"
                                   checked
                                 /><i class="las la-check-circle"></i>
                               </label>
@@ -364,9 +228,9 @@
                                 <input
                                   type="radio"
                                   class="position-absolute invisible"
-                                  name="options"
+                                  name="color"
                                   id="option2"
-                                  value="option2"
+                                  value="#DAF7A6"
                                 />
                                 <i class="las la-check-circle"></i>
                               </label>
@@ -374,9 +238,9 @@
                                 <input
                                   type="radio"
                                   class="position-absolute invisible"
-                                  name="options"
+                                  name="color"
                                   id="option3"
-                                  value="option3"
+                                  value="#33FFFC"
                                 />
                                 <i class="las la-check-circle"></i>
                               </label>
@@ -384,9 +248,9 @@
                                 <input
                                   type="radio"
                                   class="position-absolute invisible"
-                                  name="options"
+                                  name="color"
                                   id="option4"
-                                  value="option4"
+                                  value="#581845"
                                 />
                                 <i class="las la-check-circle"></i>
                               </label>

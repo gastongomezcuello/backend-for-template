@@ -26,6 +26,6 @@ urlpatterns = [
     path("register/", register_view, name="register"),
     path("list/", users_list_view, name="users_list"),
     path("profile/", profile_view, name="profile"),
-    path("block/<int:pk>/", block_unblock_user_view, name="block_user"),
-    path("delete/<int:pk>/", delete_user_view, name="delete_user"),
+    path("block/<int:user_id>/", block_unblock_user_view, name="block_user"),
+    path("delete/<int:user_id>/", delete_user_view, name="delete_user"),
 ]

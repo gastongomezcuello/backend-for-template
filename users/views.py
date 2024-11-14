@@ -139,11 +139,11 @@ def users_list_view(request):
 
 
 @login_required
-def block_unblock_user_view(request, pk):
+def block_unblock_user_view(request, user_id):
     if not request.user.is_staff:
         return redirect("index")
 
-    user = User.objects.get(id=pk)
+    user = User.objects.get(id=user_id)
     user.is_active = not user.is_active
     user.save()
 
@@ -151,10 +151,10 @@ def block_unblock_user_view(request, pk):
 
 
 @login_required
-def delete_user_view(request, pk):
+def delete_user_view(request, user_id):
     if not request.user.is_superuser:
         return redirect("index")
 
-    User.objects.get(id=pk).delete()
+    User.objects.get(id=user_id).delete()
 
     return redirect("users_list")

@@ -5,6 +5,7 @@ from coins.views import (
     portfolio_view,
     wallets_view,
     generate_transactions,
+    delete_card,
 )
 
 urlpatterns = [
@@ -12,4 +13,5 @@ urlpatterns = [
     path("portfolio/", portfolio_view, name="portfolio"),
     path("details/", details_view, name="details"),
     path("generate-transactions/", generate_transactions, name="generate_transactions"),
+    path("delete-card/<int:card_id>/", delete_card, name="delete_card"),
 ]
