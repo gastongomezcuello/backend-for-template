@@ -278,12 +278,14 @@
                 <li><a href="/coins/portfolio">Portfolio</a></li>
               </ul>
             </li>
+            {% if request.user.is_superuser %}
             <li>
               <a class="ai-icon" href="/users/list/" aria-expanded="false">
                 <i class="flaticon-077-menu-1"></i>
                 <span class="nav-text">Users</span>
               </a>
             </li>
+            {% endif %}
           </ul>
           <div class="copyright">
             <p>

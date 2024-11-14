@@ -61,11 +61,6 @@ def register_view(request):
 
 
 @login_required
-def users_list_view(request):
-    return render(request, "users/users_list.html")
-
-
-@login_required
 def profile_view(request):
 
     choices = UserProfile.CHOICE
@@ -127,3 +122,39 @@ def profile_view(request):
 def create_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
+
+
+@login_required
+def users_list_view(request):
+    if not request.user.is_staff:
+        return redirect("index")
+
+    users = User.objects.exclude(id=request.user.id)
+
+    context = {
+        "users": users,
+    }
+
+    return render(request, "users/users_list.html", context=context)
+
+
+@login_required
+def block_unblock_user_view(request, pk):
+    if not request.user.is_staff:
+        return redirect("index")
+
+    user = User.objects.get(id=pk)
+    user.is_active = not user.is_active
+    user.save()
+
+    return redirect("users_list")
+
+
+@login_required
+def delete_user_view(request, pk):
+    if not request.user.is_superuser:
+        return redirect("index")
+
+    User.objects.get(id=pk).delete()
+
+    return redirect("users_list")

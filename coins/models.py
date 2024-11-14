@@ -35,7 +35,7 @@ class Coin(models.Model):
     name = models.CharField(max_length=100)
     code = models.CharField(max_length=10)
     description = models.TextField()
-    image = models.ImageField(upload_to="coins")
+    image = models.ImageField(upload_to="coins")  # maybe change to svg data
 
     def __str__(self):
         return self.name

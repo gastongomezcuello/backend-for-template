@@ -30,40 +30,47 @@
               </tr>
             </thead>
             <tbody>
+              {% for user in users %}
               <tr>
                 <td>
-                  <h6>1.</h6>
+                  <h6>{{forloop.counter}}.</h6>
                 </td>
                 <td>
                   <div class="media style-1">
                     <img
-                      src="{% static 'images/avatar/1.jpg' %}"
+                      src="{{user.profile.profile_image.url}}"
                       class="img-fluid mr-2"
                       alt=""
                     />
                     <div class="media-body">
-                      <h6>John Doe</h6>
-                      <span>test@email.com</span>
+                      <h6>{{user.get_full_name}}</h6>
+                      <span>{{user.mail}}</span>
                     </div>
                   </div>
                 </td>
                 <td>
                   <div>
-                    <h6>England</h6>
-                    <span>COde:En</span>
+                    <h6>{{user.profile.country.name}}</h6>
+                    <span>Code:{{user.profile.country.code}}</span>
                   </div>
                 </td>
                 <td>
                   <div>
-                    <h6 class="text-primary">10/21/2016</h6>
+                    <h6 class="text-primary">
+                      {{user.profile.birthdate|date:"d/m/Y"}}
+                    </h6>
                   </div>
                 </td>
-                <td>Abbott-Jacobs</td>
+                <td>{{user.profile.company_name}}</td>
+                {% if user.is_active %}
+                <td><span class="badge badge-success">Active</span></td>
+                {% else %}
                 <td><span class="badge badge-danger">Banned</span></td>
+                {% endif %}
                 <td>
                   <div class="d-flex action-button">
                     <a
-                      href="javascript:void(0);"
+                      href="/users/block/{{user.id}}"
                       class="btn btn-info btn-xs light px-2"
                     >
                       <svg
@@ -83,7 +90,7 @@
                       </svg>
                     </a>
                     <a
-                      href="javascript:void(0);"
+                      href="/users/delete/{{user.id}}"
                       class="ml-2 btn btn-xs px-2 light btn-danger"
                     >
                       <svg
@@ -112,6 +119,9 @@
                   </div>
                 </td>
               </tr>
+              {% endfor %}
+
+              <!--
               <tr>
                 <td>
                   <h6>2.</h6>
@@ -1160,7 +1170,7 @@
                   </div>
                 </td>
               </tr>
-            </tbody>
+            --></tbody>
           </table>
         </div>
       </div>

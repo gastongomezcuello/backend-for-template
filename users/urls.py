@@ -7,6 +7,8 @@ from users.views import (
     register_view,
     users_list_view,
     profile_view,
+    block_unblock_user_view,
+    delete_user_view,
 )
 
 
@@ -24,4 +26,6 @@ urlpatterns = [
     path("register/", register_view, name="register"),
     path("list/", users_list_view, name="users_list"),
     path("profile/", profile_view, name="profile"),
+    path("block/<int:pk>/", block_unblock_user_view, name="block_user"),
+    path("delete/<int:pk>/", delete_user_view, name="delete_user"),
 ]
