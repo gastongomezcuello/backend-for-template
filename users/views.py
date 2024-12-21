@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_not_required
 
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
@@ -13,7 +13,7 @@ from users.models import UserProfile
 from admin_settings.models import Language, Country
 from news.utils import get_random_news
 
-
+@login_not_required
 def login_view(request):
     if request.method == "GET":
         return render(request, "users/login.html")
@@ -40,7 +40,7 @@ def logout_view(request):
     logout(request)
     return redirect("login")
 
-
+@login_not_required
 def register_view(request):
     if request.method == "GET":
 
@@ -60,7 +60,7 @@ def register_view(request):
             return render(request, "users/register.html", context)
 
 
-@login_required
+
 def profile_view(request):
 
     choices = UserProfile.CHOICE
@@ -124,7 +124,7 @@ def create_profile(sender, instance, created, **kwargs):
         UserProfile.objects.create(user=instance)
 
 
-@login_required
+
 def users_list_view(request):
     if not request.user.is_staff:
         return redirect("index")
@@ -138,7 +138,7 @@ def users_list_view(request):
     return render(request, "users/users_list.html", context=context)
 
 
-@login_required
+
 def block_unblock_user_view(request, user_id):
     if not request.user.is_staff:
         return redirect("index")
@@ -150,7 +150,7 @@ def block_unblock_user_view(request, user_id):
     return redirect("users_list")
 
 
-@login_required
+
 def delete_user_view(request, user_id):
     if not request.user.is_superuser:
         return redirect("index")
